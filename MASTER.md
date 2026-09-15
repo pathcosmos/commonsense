@@ -147,6 +147,8 @@ When uncertain, explicitly use language such as:
 
 Never fill missing information with plausible-looking values.
 
+When the ambiguity blocks a consequential decision (scope, architecture, data handling, anything hard to reverse), don't just flag it and guess anyway — ask the user directly instead of picking an interpretation on your own.
+
 If repository behavior, executed tests, documentation, and previous assumptions conflict, use this evidence hierarchy:
 
 1. actual repository code
@@ -323,6 +325,8 @@ except Exception:
 unless there is a documented and justified reason.
 
 When catching broad exceptions, log enough context to diagnose failure and preserve control over re-raising behavior.
+
+Every loop and recursive function must have an explicit, reachable exit condition. Where the natural termination condition isn't obviously guaranteed (unbounded input, external state, retry loops), bound it with an explicit max iteration count or timeout instead of trusting the loop to end on its own.
 
 Code comments should primarily be written in Korean.
 Identifiers should generally remain in English.
@@ -539,6 +543,7 @@ Avoid vague conclusions.
 
 Write for the next reader, not for the compiler.
 
+- Follow the language's own official or community style guide (e.g., PEP 8 for Python, Airbnb style for JavaScript/TypeScript, Effective Go for Go) unless the repository's existing convention conflicts with it — repository convention wins (see A6).
 - One level of abstraction per function: don't mix high-level orchestration with low-level detail in the same function body.
 - Prefer guard clauses (early return) over deep nested conditionals.
 - Names should say what a thing is or does without needing a comment: avoid single-letter names outside tight loop indices, avoid unexplained abbreviations, and follow the language's own casing convention consistently.
@@ -582,12 +587,14 @@ Execution sequence:
 3. identify constraints and compatibility requirements
 4. inspect similar existing patterns
 5. define the smallest safe change
-6. implement
-7. run relevant tests
-8. run lint / type checks if available and relevant
-9. inspect final diff
-10. inspect unintended changes
-11. summarize result and residual risk
+6. implement in small, reviewable increments — don't rewrite hundreds of lines in one pass; validate each increment before moving to the next
+7. write or update the corresponding tests in the same change, not as a deferred follow-up
+8. run tests and any exploratory code only in an isolated/sandboxed environment — never against production systems, production credentials, or production data
+9. run lint / type checks if available and relevant
+10. read the actual test/execution output and error logs yourself, and fix what's broken before moving on — don't hand back a result you haven't verified actually runs
+11. inspect final diff
+12. inspect unintended changes
+13. summarize result and residual risk
 
 Do not stop after generating code when validation is possible.
 
@@ -2141,6 +2148,8 @@ Do not hide known failures.
 
 ## E5. Testing Strategy
 
+When implementing new functionality, write the corresponding unit test(s) in the same change — don't defer test-writing to a separate pass (see B1).
+
 Select test level according to risk:
 
 Unit Test
@@ -2178,6 +2187,8 @@ Before adding a package, ask:
 - what runtime complexity does it introduce?
 
 Do not introduce a large framework for trivial functionality.
+
+When a new external dependency is added, pin an exact or locked version (not a floating/open range) so environment drift doesn't silently change behavior between installs.
 
 ## E7. Backward Compatibility
 
@@ -2536,7 +2547,7 @@ When uncertain, explicitly state:
 - cannot be determined from the code alone (`현재 코드만으로 판단 불가`)
 - estimate / assumption (`추정 / 가정`)
 
-Never present assumptions as facts.
+Never present assumptions as facts. When ambiguity blocks a consequential decision, ask the user directly instead of guessing.
 
 ## Repository-First Development
 
@@ -2551,6 +2562,8 @@ Before meaningful code changes:
 Preserve existing architecture, naming, error handling, logging, and code style unless there is a technical reason to change them.
 
 Do not rewrite working code without justification.
+
+Implement in small, reviewable increments — don't rewrite hundreds of lines in one pass; validate each increment before moving to the next. Run code and tests only in an isolated/sandboxed environment, never against production systems, credentials, or data.
 
 ## Engineering Rules
 
@@ -2568,11 +2581,15 @@ Prefer explicit, readable code over clever abstractions.
 
 Do not silently swallow exceptions.
 
+Every loop and recursive function must have an explicit, reachable exit condition — bound it with a max iteration count or timeout where natural termination isn't obviously guaranteed.
+
 Comments should normally be written in Korean and explain WHY, constraints, or business rules rather than obvious code behavior.
 
 Secrets and credentials must never be hard-coded.
 
 Validate external input and consider security implications.
+
+When adding a new external dependency, pin an exact/locked version rather than a floating range.
 
 ## Debugging
 
@@ -2674,7 +2691,11 @@ Use appropriate:
 * regression tests
 * lint/static/type checks
 
+Write the corresponding unit test(s) in the same change as the feature they cover — don't defer test-writing to a later pass.
+
 Never state that tests passed unless they were actually executed.
+
+Read the actual test/execution output and error logs yourself, and fix what's broken before presenting the result — don't hand back something you haven't verified actually runs.
 
 Never describe untested code as production-ready.
 
@@ -2781,6 +2802,7 @@ For implementation work report:
 
 Write for the next reader, not for the compiler.
 
+* follow the language's own official or community style guide (PEP 8, Airbnb, Effective Go, etc.) unless repository convention conflicts with it
 * one level of abstraction per function
 * prefer guard clauses over deep nested conditionals
 * descriptive names, no unexplained abbreviations, consistent casing
@@ -2871,7 +2893,7 @@ When uncertain, explicitly state:
 - cannot be determined from the code alone (`현재 코드만으로 판단 불가`)
 - estimate / assumption (`추정 / 가정`)
 
-Never present assumptions as facts.
+Never present assumptions as facts. When ambiguity blocks a consequential decision, ask the user directly instead of guessing.
 
 ## Repository-First Development
 
@@ -2886,6 +2908,8 @@ Before meaningful code changes:
 Preserve existing architecture, naming, error handling, logging, and code style unless there is a technical reason to change them.
 
 Do not rewrite working code without justification.
+
+Implement in small, reviewable increments — don't rewrite hundreds of lines in one pass; validate each increment before moving to the next. Run code and tests only in an isolated/sandboxed environment, never against production systems, credentials, or data.
 
 ## Engineering Rules
 
@@ -2903,11 +2927,15 @@ Prefer explicit, readable code over clever abstractions.
 
 Do not silently swallow exceptions.
 
+Every loop and recursive function must have an explicit, reachable exit condition — bound it with a max iteration count or timeout where natural termination isn't obviously guaranteed.
+
 Comments should normally be written in Korean and explain WHY, constraints, or business rules rather than obvious code behavior.
 
 Secrets and credentials must never be hard-coded.
 
 Validate external input and consider security implications.
+
+When adding a new external dependency, pin an exact/locked version rather than a floating range.
 
 ## Debugging
 
@@ -3009,7 +3037,11 @@ Use appropriate:
 - regression tests
 - lint/static/type checks
 
+Write the corresponding unit test(s) in the same change as the feature they cover — don't defer test-writing to a later pass.
+
 Never state that tests passed unless they were actually executed.
+
+Read the actual test/execution output and error logs yourself, and fix what's broken before presenting the result — don't hand back something you haven't verified actually runs.
 
 Never describe untested code as production-ready.
 
@@ -3115,6 +3147,7 @@ For implementation work report:
 
 Write for the next reader, not for the compiler.
 
+- follow the language's own official or community style guide (PEP 8, Airbnb, Effective Go, etc.) unless repository convention conflicts with it
 - one level of abstraction per function
 - prefer guard clauses over deep nested conditionals
 - descriptive names, no unexplained abbreviations, consistent casing
