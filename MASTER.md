@@ -535,6 +535,38 @@ Avoid excessive introductory prose.
 Avoid repeating the user's request.
 Avoid vague conclusions.
 
+## A16. Readability & Naming Conventions
+
+Write for the next reader, not for the compiler.
+
+- One level of abstraction per function: don't mix high-level orchestration with low-level detail in the same function body.
+- Prefer guard clauses (early return) over deep nested conditionals.
+- Names should say what a thing is or does without needing a comment: avoid single-letter names outside tight loop indices, avoid unexplained abbreviations, and follow the language's own casing convention consistently.
+- Boolean names read as a yes/no question (`is_ready`, `has_permission`, `can_retry`).
+- Function names are verbs or verb phrases; type/class names are nouns.
+- Treat function length and file length as a smell signal, not a hard limit — split a function because it does more than one thing, not to hit a line count.
+- Law of Demeter: a method should only talk to its immediate collaborators, not reach through them into their internals.
+- Principle of least astonishment: a function should do what its name and signature suggest, and nothing else the caller wouldn't expect.
+- Prefer domain vocabulary from the problem space over generic technical nouns (`Order`, `Shipment` over `Data`, `Manager`, `Helper`, `Info`).
+
+## A17. Documentation & Comment Structure
+
+Comments do two different jobs — don't conflate them.
+
+1. **Inline comments** (see A8): minimal, explain *why*, not *what*. Never restate what the code already says.
+2. **Structured documentation**: for public/exported functions, module entry points, and non-obvious algorithms or business logic, write a structured doc comment in the language's own convention (docstring, JSDoc, GoDoc, etc.) covering:
+   - purpose, in one line
+   - parameters and return value
+   - exceptions/error conditions it can raise
+   - invariants or preconditions the caller must satisfy
+   - a short usage example, when the call signature alone doesn't make usage obvious
+
+For a file or module that isn't self-explanatory from its name, add a short header comment stating its responsibility and what it explicitly does *not* own — this matters most at module boundaries (see A6, A7 separation of concerns).
+
+Mark unfinished or risky work explicitly and consistently (e.g., `TODO`, `FIXME`, `HACK`) with enough context for another reader to act on it — never leave an unexplained `TODO`.
+
+Do not let documentation drift from the code: a comment describing behavior that no longer exists is worse than no comment (see A9 — update comments in the same change that changes the behavior they describe).
+
 ---
 
 # PART B — Work Mode Modules
@@ -2745,6 +2777,29 @@ For implementation work report:
 - what was validated (`어떤 검증을 했는지`)
 - remaining risk (`남은 리스크`)
 
+## Readability & Naming Conventions
+
+Write for the next reader, not for the compiler.
+
+* one level of abstraction per function
+* prefer guard clauses over deep nested conditionals
+* descriptive names, no unexplained abbreviations, consistent casing
+* boolean names read as yes/no questions (`is_ready`, `has_permission`)
+* function names are verbs, type names are nouns
+* split a function because it does more than one thing, not to hit a line count
+* Law of Demeter — only talk to immediate collaborators
+* a function should do what its name and signature suggest, nothing more
+
+## Documentation & Comment Structure
+
+Inline comments: minimal, explain why, not what.
+
+For public functions, module entry points, and non-obvious logic, write structured doc comments (docstring/JSDoc/GoDoc/etc.) covering purpose, parameters, return value, exceptions, and preconditions.
+
+Mark unfinished or risky work with `TODO`/`FIXME`/`HACK` plus enough context for another reader to act on it.
+
+Update comments in the same change that changes the behavior they describe — stale documentation is worse than none.
+
 Before finalizing, verify:
 
 1. Does this solve the actual problem?
@@ -3055,6 +3110,29 @@ For implementation work report:
 - why it changed (`왜 변경했는지`)
 - what was validated (`어떤 검증을 했는지`)
 - remaining risk (`남은 리스크`)
+
+## Readability & Naming Conventions
+
+Write for the next reader, not for the compiler.
+
+- one level of abstraction per function
+- prefer guard clauses over deep nested conditionals
+- descriptive names, no unexplained abbreviations, consistent casing
+- boolean names read as yes/no questions (`is_ready`, `has_permission`)
+- function names are verbs, type names are nouns
+- split a function because it does more than one thing, not to hit a line count
+- Law of Demeter — only talk to immediate collaborators
+- a function should do what its name and signature suggest, nothing more
+
+## Documentation & Comment Structure
+
+Inline comments: minimal, explain why, not what.
+
+For public functions, module entry points, and non-obvious logic, write structured doc comments (docstring/JSDoc/GoDoc/etc.) covering purpose, parameters, return value, exceptions, and preconditions.
+
+Mark unfinished or risky work with `TODO`/`FIXME`/`HACK` plus enough context for another reader to act on it.
+
+Update comments in the same change that changes the behavior they describe — stale documentation is worse than none.
 
 Before finalizing, verify:
 
