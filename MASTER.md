@@ -15,24 +15,33 @@ This document reads identically no matter which coding agent fetches it. No spec
 3. **Always include PART A (Common Core)**, then append only the PART B/C/D/E modules chosen in step 2.
 4. Fill in PART F (Project Profile Template) — copy from `INTENT.md` if it exists, otherwise use what was confirmed/inferred in step 1. Leave unsupported fields blank or mark them `TBD`.
 5. Look up the target agent in the 0.3 table to decide the output filename and placement, then save the assembled result in that form.
-6. See PART K (Worked Examples) for what the assembled result should actually look like.
+6. If the target agent supports lazy-loading instructions by directory or topic (e.g., Hermes's per-subdirectory `AGENTS.md`, Claude's Skills), place PART C/D modules that only apply to part of the repo there instead of inlining everything into the root file.
+7. See PART K (Worked Examples) for what the assembled result should actually look like.
 
 ## 0.3 Agent Delta Table
 
 After merging the two original master documents, the only differences that actually remained between agents are compressed into this single table. PART A–J never restates these rules — it only refers back to this table.
 
-| Item | Claude Code | Codex CLI / `AGENTS.md`-convention agents | Other agents |
+| Item | Claude Code | Codex CLI / `AGENTS.md`-convention agents (incl. Hermes) | Other agents |
 |---|---|---|---|
 | Output filename | `CLAUDE.md` | `AGENTS.md` | TBD — check that agent's own docs for its filename convention |
-| Placement | Single file, or domain modules (PART C/D) that trigger repeatedly can be split into Skills | Single file (no Skill-style progressive-loading mechanism — inline the PART B/C/D summary directly in the file) | TBD |
+| Placement | Single file, or domain modules (PART C/D) that trigger repeatedly can be split into Skills | Single file at project root (no Skill-style progressive-loading mechanism — inline the PART B/C/D summary directly in the file); **Hermes** additionally supports per-subdirectory `AGENTS.md` files that are lazy-loaded on tool calls (via `subdirectory_hints.py`) rather than injected upfront — push rarely-needed domain modules there instead of the root file when the repo's directory structure maps to them | TBD |
 | PR description template header level | `##` | `##` | TBD — defer to the target tool/platform's PR template convention |
 | Commit co-author attribution | Not hardcoded — follow whatever attribution instructions the session/system provides | No explicit rule — follow the target repo/tool's policy | TBD |
-| Trust in Project Knowledge / uploaded files | RAG-based uploaded files are not guaranteed to be 100% loaded every conversation — put any rule that must always hold in the always-loaded layer (system/project custom instructions) | Not applicable (the file itself is the always-loaded prompt) | TBD |
+| Trust in Project Knowledge / uploaded files | RAG-based uploaded files are not guaranteed to be 100% loaded every conversation — put any rule that must always hold in the always-loaded layer (system/project custom instructions) | Not applicable — the root file itself is always injected at session start (Hermes: subdirectory files are the exception, see Placement row) | TBD |
+
+Hermes-specific notes (NousResearch's personal agent, confirmed via its own docs as of this writing):
+
+- Root `AGENTS.md` is injected into every session from the start; subdirectory `AGENTS.md` files are discovered lazily during tool calls instead (see Placement row above).
+- Token-budget guidance conflicts between sources: one secondary source cited a ~8k-character-per-area guideline (with `subdirectory_hints.py` capped around 32k, truncating with a warning beyond that), but Hermes's own tips page states no hard limit is specified for `AGENTS.md`/`SOUL.md` — it only says every character counts against the token budget since the file is injected into every message. Treat any specific character limit as **TBD** and just keep the root file lean.
+- Hermes also reads `.cursorrules` / `.cursor/rules/*.mdc` automatically if they already exist in the working directory — don't duplicate their content into `AGENTS.md`.
+- Hermes has a separate `SOUL.md` (global personality/persona, not project instructions) — out of scope for this document; never merge PART A–J content into it.
 
 ## 0.4 Facts Requiring Verification (do not fill in arbitrarily)
 
 - The exact character limit for claude.ai Project custom instructions: not confirmed in official documentation. Verify directly via the live counter in the input box.
 - Many PART B/E items (e.g., whether tests were actually run, whether the git diff was actually inspected) assume an agent with bash/file/git execution tools. For pure chat-only agents without such tools, these items naturally don't apply and should be skipped.
+- Hermes's actual character/token limit for `AGENTS.md` (if any): sources conflict (see the Hermes-specific notes above) — confirm against the current official docs before relying on a specific number.
 
 ---
 
