@@ -23,11 +23,13 @@
 [새 작업 시작]
       │
       ▼
-1) INTENT.md 작성
-   - 문제, 목표, 범위(In/Out of Scope), 도메인, 제약 조건을 기록
+1) INTENT.md 존재 여부 확인
+   - 있으면: 문제, 목표, 범위(In/Out of Scope), 도메인, 제약 조건을 그대로 읽음
+   - 없으면: 레포/README/코드/사용자 요청에서 추론하거나 직접 확인,
+             가능하면 이번에 INTENT.md를 새로 작성해 남김
       │
       ▼
-2) INTENT.md 내용으로 도메인/프리셋 판별
+2) INTENT.md(또는 추론한 내용)로 도메인/프리셋 판별
    - MASTER.md의 PART G(프리셋 → 모듈 활성화 매핑) 참조
       │
       ▼
@@ -64,14 +66,12 @@
 
 ## 5. 이 저장소를 사용하는 방법 (다른 프로젝트에 적용할 때)
 
-1. 대상 프로젝트에서 위 3장의 절차대로 `INTENT.md`를 먼저 작성한다. 최소 포함 항목:
-   - Project Purpose(실제로 해결하는 문제)
-   - In Scope / Out of Scope
-   - Domain(예: Manufacturing AI / RAG / Backend API / Data Engineering 등)
-   - 알려진 제약(런타임, 데이터, 규정 등)
+1. 대상 프로젝트에 `INTENT.md`가 이미 있는지 확인한다.
+   - **있으면** 그 내용(Project Purpose / In·Out of Scope / Domain / 제약)을 그대로 쓴다.
+   - **없으면** 레포/README/코드/사용자 요청에서 추론하거나 사용자에게 직접 확인한다. 가능하면 이번에 `INTENT.md`를 새로 작성해 남긴다. 추론한 내용은 사실처럼 적지 않는다.
 2. Domain을 기준으로 `MASTER.md`의 PART G 표에서 가장 가까운 프리셋(G1~G13)을 고른다. 정확히 맞는 프리셋이 없으면 PART B/C/D에서 개별 모듈을 직접 골라 조합한다.
 3. 같은 문서 0.3절 "에이전트 배치 차이표"에서 대상 에이전트를 찾아 출력 파일명(`CLAUDE.md`/`AGENTS.md`/기타)과 배치 방식을 확인한다.
-4. PART F(Project Profile Template)를 `INTENT.md`의 내용으로 채워 조립된 파일 맨 아래에 붙인다.
+4. PART F(Project Profile Template)를 1번에서 확보한 내용(있으면 `INTENT.md`, 없으면 추론/확인한 내용)으로 채워 조립된 파일 맨 아래에 붙인다.
 5. 결과물을 대상 프로젝트 루트에 커밋한다. `commonsense` 저장소 자체는 수정하지 않는다(원재료 저장소이므로 프로젝트별 산출물을 여기 쌓지 않는다).
 
 ## 6. Scope
