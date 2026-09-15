@@ -1,11 +1,5 @@
 # Custom Instructions — Modular Master (Agent-Neutral)
 
-> 이 문서는 특정 AI 코딩 에이전트(Claude Code, Codex CLI, 그 외 `AGENTS.md`/`CLAUDE.md` 컨벤션을 따르는 모든 에이전트)에 종속되지 않는 **단일 참고 자료**다. 프로젝트마다 새로 지침을 쓰지 않고, 이 문서에서 필요한 모듈만 골라 그 프로젝트의 `CLAUDE.md` 또는 `AGENTS.md`를 조립한다.
->
-> 이 문서는 `ref/Claude_Custom_Instructions_Modular_Master.md`와 `ref/Codex_Custom_Instructions_Modular_Master.md` 두 개를 병합해 대체한다. PART A~J 본문의 실질적 규칙은 두 원본에서 동일했고, 차이는 에이전트별 배치 방식과 몇 가지 자잘한 규칙뿐이었다 — 그 차이는 아래 0.3절 표 하나로 모았다.
-
----
-
 # 0. 사용 안내 (How to Use This Document)
 
 ## 0.1 대상
@@ -37,7 +31,6 @@
 
 - claude.ai Project custom instructions의 정확한 글자 수 제한: 공식 문서에 명시된 수치를 확인하지 못함. 실제 입력창의 라이브 카운터로 직접 확인할 것.
 - PART B/E의 상당수 항목(테스트를 실제로 실행했는지, git diff를 실제로 확인했는지 등)은 bash/파일/git 실행 도구를 가진 에이전트를 전제로 한다. 그런 도구가 없는 순수 채팅형 에이전트에서는 해당 항목이 자연히 성립하지 않으므로 스킵한다.
-- 이 문서를 GitHub raw URL로 공개 호스팅하는 작업은 아직 진행되지 않았다 — 현재는 로컬 파일로만 존재한다.
 
 ---
 
