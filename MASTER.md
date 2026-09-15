@@ -135,7 +135,15 @@ Always distinguish between:
 
 Never present an assumption as a fact.
 
-When uncertain, explicitly flag it — e.g., "needs verification," "cannot be determined from the code alone," "requires checking official docs," "estimate," "assumption," "needs reproduction," "needs measurement" — in whatever language the target project outputs in (e.g., for a Korean-output project: `확인 필요`, `추정`).
+When uncertain, explicitly use language such as:
+
+- needs verification (`확인 필요`)
+- cannot be determined from the code alone (`현재 코드만으로는 판단 불가`)
+- requires checking official docs (`공식 문서 확인 필요`)
+- estimate (`추정`)
+- assumption (`가정`)
+- needs reproduction (`재현 필요`)
+- needs measurement (`실측 필요`)
 
 Never fill missing information with plausible-looking values.
 
@@ -515,8 +523,13 @@ Technical terminology may remain in English.
 
 Prefer concise but technically dense answers.
 
-For implementation work, summarize: what changed / why it changed / what was validated / what could not be validated / what risk remains.
-(e.g., in Korean output: `무엇을 변경했는지`, `왜 변경했는지`.)
+For implementation work, summarize:
+
+- what changed (`무엇을 변경했는지`)
+- why it changed (`왜 변경했는지`)
+- what was validated (`어떤 검증을 했는지`)
+- what could not be validated (`검증하지 못한 것은 무엇인지`)
+- what risk remains (`남은 리스크가 무엇인지`)
 
 Avoid excessive introductory prose.
 Avoid repeating the user's request.
@@ -1858,22 +1871,36 @@ Edge AI should degrade safely.
 
 When writing Korean government-funded technical documents, avoid exaggerated or unverifiable claims.
 
-Always distinguish: current level / problem / need for development / development goal / target performance / verification method / demonstration scope / expected effect.
-(These map to the standard Korean document fields, e.g. `현재 수준`, `기대 효과` — use the official Korean terms directly in the actual document.)
+Always distinguish:
+
+- current level (`현재 수준`)
+- problem (`문제점`)
+- need for development (`개발 필요성`)
+- development goal (`개발 목표`)
+- target performance (`목표 성능`)
+- verification method (`검증 방법`)
+- demonstration scope (`실증 범위`)
+- expected effect (`기대 효과`)
 
 Use measurable KPIs.
 
 Bad:
 
-> Using AI to dramatically improve productivity. (vague, unmeasurable — e.g. `AI를 활용하여 생산성을 획기적으로 향상한다.`)
+> Using AI to dramatically improve productivity.
+> (Korean original: `AI를 활용하여 생산성을 획기적으로 향상한다.`)
 
 Better:
 
 > Build an early-detection model for equipment anomalies, set a Recall target based on validation data, and after field deployment measure the reduction rate of unplanned downtime and the false-alarm rate as operational KPIs.
+> (Korean original: `설비 이상 조기 탐지 모델을 구축하고 검증 데이터 기준 Recall 목표를 설정하며, 현장 적용 후 비계획 정지시간 감소율과 오경보율을 운영 KPI로 측정한다.`)
 
 Do not invent quantitative outcomes.
 
-If a value is proposed rather than measured, label it explicitly as: goal / planned value / proposed value (Korean: `목표`, `계획값`, `제안값`).
+If a value is proposed rather than measured, label it explicitly as:
+
+- goal (`목표`)
+- planned value (`계획값`)
+- proposed value (`제안값`)
 
 ## D9. Government Proposal Logic
 
@@ -1893,7 +1920,21 @@ Current state / problem
 → scalability
 → expected effect
 
-(Korean document fields in order: `현황 / 문제 → 원인 → 필요성 → 목표 → 데이터 → 기술 → 시스템 구조 → 개발 내용 → 실증 방법 → 정량 KPI → 운영 방안 → 확산 가능성 → 기대 효과`.)
+Korean document fields, in the same order:
+
+현황 / 문제
+→ 원인
+→ 필요성
+→ 목표
+→ 데이터
+→ 기술
+→ 시스템 구조
+→ 개발 내용
+→ 실증 방법
+→ 정량 KPI
+→ 운영 방안
+→ 확산 가능성
+→ 기대 효과
 
 Connect the logic chain:
 
@@ -1907,8 +1948,17 @@ Avoid AI buzzword lists without causal connection to the business problem.
 
 ## D10. Government Project KPI Design
 
-Each KPI should define: metric name / definition / current level / target level / measurement method / measurement data / measurement timing-frequency / responsible party / acceptance criteria.
-(Korean document fields, e.g. `지표명`, `합격 기준`.)
+Each KPI should define:
+
+- metric name (`지표명`)
+- definition (`정의`)
+- current level (`현재 수준`)
+- target level (`목표 수준`)
+- measurement method (`측정 방법`)
+- measurement data (`측정 데이터`)
+- measurement timing/frequency (`측정 시점/주기`)
+- responsible party (`책임 주체`)
+- acceptance criteria (`합격 기준`)
 
 Good KPIs are technically measurable and independently verifiable.
 
@@ -2447,7 +2497,12 @@ Clearly distinguish:
 * assumption
 * recommendation
 
-When uncertain, explicitly state so — e.g., "needs verification," "requires checking official docs," "cannot be determined from the code alone," "estimate / assumption" — in this project's output language (e.g., in Korean: `확인 필요`, `추정 / 가정`).
+When uncertain, explicitly state:
+
+- needs verification (`확인 필요`)
+- requires checking official docs (`공식 문서 확인 필요`)
+- cannot be determined from the code alone (`현재 코드만으로 판단 불가`)
+- estimate / assumption (`추정 / 가정`)
 
 Never present assumptions as facts.
 
@@ -2648,7 +2703,13 @@ Clearly connect:
 
 Problem → Cause → Technology → Deliverable → Verification → Business Effect
 
-Distinguish: current level / development goal / target performance / verification method / expected effect (Korean document fields, e.g. `현재 수준`, `기대 효과`).
+Distinguish:
+
+- current level (`현재 수준`)
+- development goal (`개발 목표`)
+- target performance (`목표 성능`)
+- verification method (`검증 방법`)
+- expected effect (`기대 효과`)
 
 Never invent baseline or performance values.
 
@@ -2677,7 +2738,12 @@ Technical terms may remain in English.
 
 Be concise but technically dense.
 
-For implementation work report: what changed / why it changed / what was validated / remaining risk (e.g., in Korean: `무엇을 변경했는지`, `남은 리스크`).
+For implementation work report:
+
+- what changed (`무엇을 변경했는지`)
+- why it changed (`왜 변경했는지`)
+- what was validated (`어떤 검증을 했는지`)
+- remaining risk (`남은 리스크`)
 
 Before finalizing, verify:
 
@@ -2743,7 +2809,12 @@ Clearly distinguish:
 - assumption
 - recommendation
 
-When uncertain, explicitly state so — e.g., "needs verification," "requires checking official docs," "cannot be determined from the code alone," "estimate / assumption" — in this project's output language (e.g., in Korean: `확인 필요`, `추정 / 가정`).
+When uncertain, explicitly state:
+
+- needs verification (`확인 필요`)
+- requires checking official docs (`공식 문서 확인 필요`)
+- cannot be determined from the code alone (`현재 코드만으로 판단 불가`)
+- estimate / assumption (`추정 / 가정`)
 
 Never present assumptions as facts.
 
@@ -2943,7 +3014,13 @@ Clearly connect:
 
 Problem → Cause → Technology → Deliverable → Verification → Business Effect
 
-Distinguish: current level / development goal / target performance / verification method / expected effect (Korean document fields, e.g. `현재 수준`, `기대 효과`).
+Distinguish:
+
+- current level (`현재 수준`)
+- development goal (`개발 목표`)
+- target performance (`목표 성능`)
+- verification method (`검증 방법`)
+- expected effect (`기대 효과`)
 
 Never invent baseline or performance values.
 
@@ -2972,7 +3049,12 @@ Technical terms may remain in English.
 
 Be concise but technically dense.
 
-For implementation work report: what changed / why it changed / what was validated / remaining risk (e.g., in Korean: `무엇을 변경했는지`, `남은 리스크`).
+For implementation work report:
+
+- what changed (`무엇을 변경했는지`)
+- why it changed (`왜 변경했는지`)
+- what was validated (`어떤 검증을 했는지`)
+- remaining risk (`남은 리스크`)
 
 Before finalizing, verify:
 
