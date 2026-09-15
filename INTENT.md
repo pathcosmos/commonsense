@@ -1,95 +1,100 @@
 # INTENT.md
 
-## 1. 이 프로젝트의 목적
+## 1. Purpose of This Project
 
-`commonsense`는 소프트웨어를 만드는 프로젝트가 아니다.
+`commonsense` is not a project that builds software.
 
-**새 작업(프로젝트/레포)을 시작할 때마다 다음 두 단계를 자동/반자동으로 수행하기 위한 참고 자료(reference material) 저장소다:**
+**It is a reference-material repository for performing the following two steps, automatically or semi-automatically, every time a new piece of work (project/repo) starts:**
 
-1. 해당 작업의 `INTENT.md` 작성 — 그 작업이 실제로 해결하려는 문제, 목표, 범위를 정의
-2. 그 `INTENT.md`에 기록된 목적/도메인/제약에 맞는 `CLAUDE.md` 또는 `AGENTS.md`를 조립 — 매번 처음부터 쓰지 않고, 이미 검증된 모듈 중 필요한 것만 골라 붙인다
+1. Write that work's own `INTENT.md` — defining the problem, goal, and scope it actually needs to solve
+2. Assemble a `CLAUDE.md` or `AGENTS.md` that fits the purpose/domain/constraints recorded in that `INTENT.md` — instead of writing from scratch every time, pick and attach only the already-validated modules that are needed
 
-즉 이 저장소가 담고 있는 것은 "지침 그 자체"가 아니라, **지침을 프로젝트별로 조립할 때 참조하는 원재료(source of modules) + 조립 절차**다.
+In other words, what this repository holds is not "the instructions themselves," but **the raw material (source of modules) + assembly procedure referenced when composing instructions per project**.
 
-## 2. 배경 / 왜 필요한가
+## 2. Background / Why This Is Needed
 
-- 프로젝트마다 매번 `CLAUDE.md`/`AGENTS.md`를 새로 작성하면 프로젝트 간 일관성이 깨지고, 이미 검증된 규칙(할루시네이션 방지, 근거 우선순위, 리팩토링 정책 등)을 빠뜨리기 쉽다.
-- 반대로 모든 프로젝트에 동일한 초거대 지침 파일을 그대로 복붙하면, 관련 없는 도메인 규칙(예: OT/PLC 통합 규칙이 순수 프론트엔드 프로젝트에 섞임)이 노이즈로 작동해 신호 대 잡음비가 떨어진다.
-- 해결책: 공통 원칙(Common Core)은 항상 포함하고, 도메인/작업모드/산업 특화 모듈은 **그 프로젝트의 `INTENT.md`가 명시한 목적에 맞는 것만** 선택적으로 포함한다.
+- Writing a fresh `CLAUDE.md`/`AGENTS.md` from scratch for every project breaks consistency across projects and makes it easy to drop already-validated rules (anti-hallucination, evidence priority, refactoring policy, etc.).
+- Conversely, copy-pasting the same giant instruction file into every project injects irrelevant domain rules (e.g., OT/PLC integration rules bleeding into a pure frontend project) as noise, degrading the signal-to-noise ratio.
+- Solution: always include the common principles (Common Core), and selectively include domain/work-mode/industry-specific modules **only when they match the purpose stated in that project's own `INTENT.md`**.
 
-## 3. 핵심 워크플로우
+## 3. Core Workflow
 
 ```
-[새 작업 시작]
+[New work starts]
       │
       ▼
-1) INTENT.md 존재 여부 확인
-   - 있으면: 문제, 목표, 범위(In/Out of Scope), 도메인, 제약 조건을 그대로 읽음
-   - 없으면: 레포/README/코드/사용자 요청에서 추론하거나 직접 확인,
-             가능하면 이번에 INTENT.md를 새로 작성해 남김
+1) Check whether INTENT.md exists
+   - If it exists: read the problem, goal, scope (In/Out of Scope),
+     domain, and constraints directly from it
+   - If it doesn't: infer from the repo/README/code/user request,
+     or confirm directly with the user; write a new INTENT.md now
+     if practical
       │
       ▼
-2) INTENT.md(또는 추론한 내용)로 도메인/프리셋 판별
-   - MASTER.md의 PART G(프리셋 → 모듈 활성화 매핑) 참조
+2) Determine domain/preset from INTENT.md (or the inferred content)
+   - See MASTER.md's PART G (Preset → Module Activation Map)
       │
       ▼
-3) 필요한 모듈만 선택
-   - PART A(Common Core) : 항상 포함
-   - PART B(작업 모드) / PART C(기술 도메인) / PART D(산업·정부과제) / PART E(Git·PR)
-     중 해당 프로젝트에 실제로 관련된 것만
+3) Select only the modules that are needed
+   - PART A (Common Core): always included
+   - PART B (work modes) / PART C (technical domains) /
+     PART D (industrial & public projects) / PART E (Git/PR):
+     only the ones actually relevant to this project
       │
       ▼
-4) 타깃 에이전트 확인 후 CLAUDE.md 또는 AGENTS.md로 조립
-   - MASTER.md의 0.3절 "에이전트 배치 차이표"에서
-     대상 에이전트(Claude Code / Codex CLI·AGENTS.md 컨벤션 / 기타)를 찾아
-     출력 파일명·배치 방식·자잘한 규칙 차이를 결정
-   - 조립 마지막에 PART F(Project Profile Template)를 채워 프로젝트 개요를 덧붙인다
+4) Identify the target agent, then assemble CLAUDE.md or AGENTS.md
+   - Look up the target agent (Claude Code / Codex CLI·AGENTS.md
+     convention / other) in MASTER.md section 0.3 "Agent Delta Table"
+     to decide the output filename, placement, and any minor rule
+     differences
+   - Finish assembly by filling in PART F (Project Profile Template)
+     with the project overview
       │
       ▼
-5) 결과물을 대상 프로젝트 루트에 배치
-   - INTENT.md, CLAUDE.md/AGENTS.md 두 파일이 함께 존재
+5) Place the result at the target project's root
+   - INTENT.md and CLAUDE.md/AGENTS.md both exist together
 ```
 
-이 저장소는 어떤 에이전트가 fetch하든 동일하게 참고할 수 있는 **단일 문서**를 지향한다. 과거에는 Claude용/Codex용 마스터 문서가 따로 있었으나, PART A~J 본문이 실질적으로 동일하다는 것을 확인한 뒤 하나로 병합했다. 에이전트별로 달라지는 부분(출력 파일명, 배치 방식, PR 헤더 레벨, 공동저자 표기 등)은 병합 문서의 0.3절 표 하나로만 존재한다.
+This repository aims for a **single document** that any agent can fetch and reference identically. There used to be separate master documents for Claude and Codex, but once it was confirmed that the PART A–J body was substantively the same in both, they were merged into one. The parts that differ by agent (output filename, placement, PR header level, co-author attribution, etc.) exist only in the merged document's 0.3 table.
 
-## 4. 이 저장소의 구성물 (현재)
+## 4. What This Repository Currently Contains
 
 - `MASTER.md`
-  에이전트에 종속되지 않는 단일 모듈 마스터. 구성:
-  - 0장: 사용 안내 — 조립 절차, 에이전트 배치 차이표(0.3), 확인이 필요한 사실(0.4)
-  - PART A(Common Core) ~ PART J(최종 체크): 어떤 에이전트가 조립하든 동일한 규칙 본문
-  - PART F: Project Profile Template (이 저장소 자신의 `INTENT.md` → 프로젝트 프로파일 매핑에 사용)
-  - PART G: 프리셋(G1~G13) → 모듈 활성화 매핑 표
-  - PART K: Worked Examples — 동일한 프리셋(G1)을 Claude Code(`CLAUDE.md`)와 Codex/`AGENTS.md` 컨벤션(`AGENTS.md`) 각각으로 조립했을 때의 완성본 예시
+  A single, agent-independent modular master. Composed of:
+  - Section 0: usage guide — assembly procedure, Agent Delta Table (0.3), facts requiring verification (0.4)
+  - PART A (Common Core) through PART J (final check): rule body that is identical no matter which agent assembles it
+  - PART F: Project Profile Template (used to map this repository's own `INTENT.md` into a project profile)
+  - PART G: Preset (G1–G13) → Module Activation Map
+  - PART K: Worked Examples — finished results of assembling the same preset (G1) for Claude Code (`CLAUDE.md`) and for the Codex/`AGENTS.md` convention (`AGENTS.md`) respectively
 
-과거에는 Claude용/Codex용 마스터 문서와 그 조립 예시(`CLAUDE.md`/`AGENTS.md`)가 4개 파일로 나뉘어 있었으나, PART A~J 본문이 실질적으로 동일하다는 것을 확인하고 하나로 병합했다(예시 파일은 PART K로 흡수). 이 파일이 이 저장소의 1차 원재료다. 조립 절차나 스크립트가 추가되면, 이 문서의 4장·6장을 갱신한다.
+There used to be separate Claude/Codex master documents and their assembly examples (`CLAUDE.md`/`AGENTS.md`) split across 4 files. After confirming the PART A–J body was substantively identical, they were merged into one (the example files were absorbed into PART K). This file is this repository's primary raw material. If an assembly procedure or script is ever added, update sections 4 and 6 of this document.
 
-## 5. 이 저장소를 사용하는 방법 (다른 프로젝트에 적용할 때)
+## 5. How to Use This Repository (when applying it to another project)
 
-1. 대상 프로젝트에 `INTENT.md`가 이미 있는지 확인한다.
-   - **있으면** 그 내용(Project Purpose / In·Out of Scope / Domain / 제약)을 그대로 쓴다.
-   - **없으면** 레포/README/코드/사용자 요청에서 추론하거나 사용자에게 직접 확인한다. 가능하면 이번에 `INTENT.md`를 새로 작성해 남긴다. 추론한 내용은 사실처럼 적지 않는다.
-2. Domain을 기준으로 `MASTER.md`의 PART G 표에서 가장 가까운 프리셋(G1~G13)을 고른다. 정확히 맞는 프리셋이 없으면 PART B/C/D에서 개별 모듈을 직접 골라 조합한다.
-3. 같은 문서 0.3절 "에이전트 배치 차이표"에서 대상 에이전트를 찾아 출력 파일명(`CLAUDE.md`/`AGENTS.md`/기타)과 배치 방식을 확인한다.
-4. PART F(Project Profile Template)를 1번에서 확보한 내용(있으면 `INTENT.md`, 없으면 추론/확인한 내용)으로 채워 조립된 파일 맨 아래에 붙인다.
-5. 결과물을 대상 프로젝트 루트에 커밋한다. `commonsense` 저장소 자체는 수정하지 않는다(원재료 저장소이므로 프로젝트별 산출물을 여기 쌓지 않는다).
+1. Check whether the target project already has an `INTENT.md`.
+   - **If it exists**, use its content (Project Purpose / In·Out of Scope / Domain / constraints) as-is.
+   - **If it doesn't**, infer it from the repo/README/code/user request, or confirm directly with the user. Write a new `INTENT.md` now if practical. Do not write inferred content as if it were fact.
+2. Based on Domain, pick the closest preset (G1–G13) from `MASTER.md`'s PART G table. If none fits exactly, combine individual modules from PART B/C/D directly.
+3. In the same document's 0.3 "Agent Delta Table," look up the target agent to confirm the output filename (`CLAUDE.md`/`AGENTS.md`/other) and placement.
+4. Fill PART F (Project Profile Template) with what was obtained in step 1 (from `INTENT.md` if it exists, otherwise the inferred/confirmed content), and append it to the bottom of the assembled file.
+5. Commit the result at the target project's root. Do not modify the `commonsense` repository itself (it's a raw-material repository, so per-project outputs don't accumulate here).
 
 ## 6. Scope
 
 **In Scope**
-- `INTENT.md` 작성 가이드 및 표준 항목 정의
-- `CLAUDE.md`/`AGENTS.md` 자동/반자동 조립에 쓰이는 모듈형 원재료 유지·보완
-- 프리셋(도메인) → 모듈 매핑표 유지·보완
-- 새 도메인이 반복적으로 필요해질 때 PART C/D에 모듈 추가
+- Defining the `INTENT.md` writing guide and its standard fields
+- Maintaining the modular raw material used for automatic/semi-automatic `CLAUDE.md`/`AGENTS.md` assembly
+- Maintaining the preset (domain) → module mapping table
+- Adding modules to PART C/D as new domains recur often enough to justify it
 
 **Out of Scope**
-- 특정 프로젝트의 실제 `CLAUDE.md`/`AGENTS.md` 산출물을 이 저장소에 영구 보관하는 것(`MASTER.md`의 PART K는 조립 예시일 뿐, 특정 실제 프로젝트의 최종본이 아니다)
-- 이 저장소 자체에 대한 소스코드/애플리케이션 로직 구현
-- 조립 자동화를 위한 실행 스크립트 구현 여부는 별도 결정 필요 — 현재는 사람/에이전트가 마스터 문서를 참조해 수동으로 조립하는 것을 전제로 한다 (확인 필요: 스크립트/CLI 자동화가 실제로 요구되는지)
+- Permanently storing a specific project's actual `CLAUDE.md`/`AGENTS.md` output in this repository (`MASTER.md`'s PART K is only an assembly example, not the final version of any specific real project)
+- Implementing source code/application logic for this repository itself
+- Whether to implement an automation script for assembly is a separate decision — currently this assumes a human/agent manually assembles it by referring to the master document (TBD: whether script/CLI automation is actually required)
 
-## 7. 향후 작업 (미확정 — 임의로 채우지 않음)
+## 7. Future Work (undecided — not filled in arbitrarily)
 
-- `INTENT.md` 표준 템플릿을 별도 파일(예: `INTENT_Template.md`)로 분리할지 여부 — 확인 필요
-- 프리셋 판별을 사람이 아니라 스크립트/에이전트가 자동으로 수행하게 할지 여부 — 확인 필요
-- `MASTER.md`를 GitHub public 저장소에 올려 raw URL로 호스팅 — 진행 중/완료 여부는 커밋 로그와 원격 저장소 상태로 확인할 것(이 문서에 날짜를 못박아 두지 않음)
-- PART A~J 본문이 향후 특정 에이전트에서만 다르게 동작해야 하는 경우가 생기면, 0.3 배치 차이표를 확장할지 본문을 다시 분기할지 여부 — 확인 필요
+- Whether to split the standard `INTENT.md` template into a separate file (e.g., `INTENT_Template.md`) — TBD
+- Whether preset selection should be automated by a script/agent instead of a human — TBD
+- Hosting `MASTER.md` on a public GitHub repo as a raw URL — check the commit log and remote repo state for progress/completion (this document does not pin a date to it)
+- If PART A–J content ever needs to behave differently for a specific agent, whether to extend the 0.3 delta table or branch the body content again — TBD

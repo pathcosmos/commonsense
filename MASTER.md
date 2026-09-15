@@ -1,38 +1,38 @@
 # Custom Instructions — Modular Master (Agent-Neutral)
 
-# 0. 사용 안내 (How to Use This Document)
+# 0. How to Use This Document
 
-## 0.1 대상
+## 0.1 Scope
 
-이 문서는 어떤 코딩 에이전트가 fetch하든 동일하게 읽힌다. 본문(PART A~J) 어디에도 특정 에이전트 이름이 등장하지 않는다. 에이전트마다 달라지는 부분은 오직 **0.3 배치 차이표**에만 있다.
+This document reads identically no matter which coding agent fetches it. No specific agent name appears anywhere in the body (PART A–J). The only place that differs by agent is the **0.3 Agent Delta Table**.
 
-## 0.2 조립 절차
+## 0.2 Assembly Procedure
 
-1. 대상 프로젝트에 `INTENT.md`가 있는지 확인한다.
-   - **있으면**: 그 내용에서 목적 / 도메인 / 제약을 읽는다.
-   - **없으면**: 레포 구조, README, 기존 코드, 사용자 요청에서 목적/도메인을 추론하거나 사용자에게 직접 확인한다. 가능하면 이번에 `INTENT.md`를 새로 작성해 남긴다. 작성이 불필요하거나 불가능하면 추론한 내용임을 명시하고 다음 단계로 진행한다 — 추측을 사실처럼 PART F에 적지 않는다(PART A3 참고).
-2. PART G(프리셋 → 모듈 활성화 맵)에서 가장 가까운 프리셋(G1~G13)을 고른다. 정확히 맞는 프리셋이 없으면 PART B/C/D에서 개별 모듈을 직접 조합한다.
-3. **PART A(Common Core)는 항상 포함**하고, 2번에서 고른 PART B/C/D/E 모듈만 그 뒤에 붙인다.
-4. PART F(Project Profile Template)를 채운다 — `INTENT.md`가 있으면 그 내용을 그대로 옮기고, 없으면 1번에서 확인/추론한 내용으로 채운다. 근거 없는 항목은 비워두거나 `확인 필요`로 표기한다.
-5. 0.3 표에서 타깃 에이전트를 찾아 출력 파일명과 배치 방식을 결정하고, 조립한 결과를 그 형식으로 저장한다.
-6. 조립된 결과가 실제로 어떤 모습이어야 하는지는 PART K(Worked Examples)를 참고한다.
+1. Check whether the target project already has an `INTENT.md`.
+   - **If it exists**: read the purpose / domain / constraints from it.
+   - **If it does not**: infer the purpose/domain from the repo structure, README, existing code, or the user's request — or ask the user directly. Write a new `INTENT.md` now if practical. If writing one is unnecessary or not possible, mark the inferred content as inferred and proceed — do not write assumptions into PART F as if they were facts (see PART A3).
+2. Pick the closest preset (G1–G13) from PART G (Preset → Module Activation Map). If none fits exactly, combine individual modules from PART B/C/D directly.
+3. **Always include PART A (Common Core)**, then append only the PART B/C/D/E modules chosen in step 2.
+4. Fill in PART F (Project Profile Template) — copy from `INTENT.md` if it exists, otherwise use what was confirmed/inferred in step 1. Leave unsupported fields blank or mark them `TBD`.
+5. Look up the target agent in the 0.3 table to decide the output filename and placement, then save the assembled result in that form.
+6. See PART K (Worked Examples) for what the assembled result should actually look like.
 
-## 0.3 에이전트 배치 차이표 (Agent Delta Table)
+## 0.3 Agent Delta Table
 
-두 원본 마스터 문서를 병합하면서 실제로 남아있던 에이전트별 차이는 이 표 하나로 압축된다. 본문 PART A~J는 이 표를 참조만 하고, 규칙을 중복 서술하지 않는다.
+After merging the two original master documents, the only differences that actually remained between agents are compressed into this single table. PART A–J never restates these rules — it only refers back to this table.
 
-| 항목 | Claude Code | Codex CLI / `AGENTS.md` 컨벤션 에이전트 | 기타 에이전트 |
+| Item | Claude Code | Codex CLI / `AGENTS.md`-convention agents | Other agents |
 |---|---|---|---|
-| 출력 파일명 | `CLAUDE.md` | `AGENTS.md` | 확인 필요 — 해당 에이전트 문서에서 관례 파일명 확인 |
-| 배치 방식 | 단일 파일 또는, 반복적으로 트리거되는 도메인 모듈(PART C/D)을 Skill로 분산 가능 | 단일 파일 (Skill류 점진적 로딩 메커니즘 없음 — PART B/C/D 요약을 파일 안에 직접 포함) | 확인 필요 |
-| PR 설명 템플릿 헤더 레벨 | `##` | `##` | 확인 필요 — 대상 툴/플랫폼의 PR 템플릿 컨벤션 우선 |
-| 커밋 공동저자(co-author) 표기 | 하드코딩하지 않음 — 세션/시스템이 내려주는 attribution 지침을 그대로 따름 | 명시 규칙 없음 — 대상 저장소/툴 정책을 따름 | 확인 필요 |
-| Project Knowledge / 업로드 파일 신뢰 여부 | RAG 기반 업로드 파일은 매 대화 100% 로드를 보장하지 않음 — 항상 지켜야 할 규칙은 상시 로드되는 쪽(시스템/프로젝트 custom instructions)에 둔다 | 해당 없음(파일이 곧 상시 프롬프트) | 확인 필요 |
+| Output filename | `CLAUDE.md` | `AGENTS.md` | TBD — check that agent's own docs for its filename convention |
+| Placement | Single file, or domain modules (PART C/D) that trigger repeatedly can be split into Skills | Single file (no Skill-style progressive-loading mechanism — inline the PART B/C/D summary directly in the file) | TBD |
+| PR description template header level | `##` | `##` | TBD — defer to the target tool/platform's PR template convention |
+| Commit co-author attribution | Not hardcoded — follow whatever attribution instructions the session/system provides | No explicit rule — follow the target repo/tool's policy | TBD |
+| Trust in Project Knowledge / uploaded files | RAG-based uploaded files are not guaranteed to be 100% loaded every conversation — put any rule that must always hold in the always-loaded layer (system/project custom instructions) | Not applicable (the file itself is the always-loaded prompt) | TBD |
 
-## 0.4 확인이 필요한 사실 (임의로 채우지 않음)
+## 0.4 Facts Requiring Verification (do not fill in arbitrarily)
 
-- claude.ai Project custom instructions의 정확한 글자 수 제한: 공식 문서에 명시된 수치를 확인하지 못함. 실제 입력창의 라이브 카운터로 직접 확인할 것.
-- PART B/E의 상당수 항목(테스트를 실제로 실행했는지, git diff를 실제로 확인했는지 등)은 bash/파일/git 실행 도구를 가진 에이전트를 전제로 한다. 그런 도구가 없는 순수 채팅형 에이전트에서는 해당 항목이 자연히 성립하지 않으므로 스킵한다.
+- The exact character limit for claude.ai Project custom instructions: not confirmed in official documentation. Verify directly via the live counter in the input box.
+- Many PART B/E items (e.g., whether tests were actually run, whether the git diff was actually inspected) assume an agent with bash/file/git execution tools. For pure chat-only agents without such tools, these items naturally don't apply and should be skipped.
 
 ---
 
@@ -2210,16 +2210,16 @@ Do not include every module by default. Keep project instructions focused.
 # Project Profile
 
 ## Project Purpose
-- 이 프로젝트가 실제로 해결해야 하는 문제
+- the problem this project actually needs to solve
 
 ## In Scope
-- 구현/분석/문서화 대상
+- implementation/analysis/documentation targets
 
 ## Out of Scope
-- 이번 프로젝트에서 하지 않을 것
+- what this project will not do
 
 ## Domain
-- 예: Manufacturing AI / RAG / TMS / Data Engineering / LLM Training
+- e.g., Manufacturing AI / RAG / TMS / Data Engineering / LLM Training
 
 ## Main Stack
 - Language:
@@ -2272,8 +2272,8 @@ Do not include every module by default. Keep project instructions focused.
 - commit style:
 - migration policy:
 
-## Active Modules (이 프로젝트에서 켜둔 모듈)
-- (PART G 참고해서 기입)
+## Active Modules (modules enabled for this project)
+- (fill in based on PART G)
 
 ## Known Risks
 - ...
@@ -2283,23 +2283,23 @@ Do not include every module by default. Keep project instructions focused.
 
 # PART G — Preset → Module Activation Map
 
-지침이 아니라 **셋업 체크리스트**다. 새 프로젝트 시작 시 이 표를 보고 PART A 외에 어떤 모듈을 켤지 고른다.
+This is a **setup checklist**, not an instruction set. When starting a new project, use this table to decide which modules to enable beyond PART A.
 
-| 프리셋 | Common Core 외 활성화할 모듈 | 핵심 포인트 |
+| Preset | Modules to enable besides Common Core | Focus |
 |---|---|---|
-| G1. General Software Development | B1 B2 B3, C1 그리고/또는 C2, E1–E9 | 정확성, 유지보수성, 레포 컨벤션, 테스트 가능성, 하위 호환성 |
-| G2. Data Engineering | B1 B3 B6 B7, C4 C5 C6, E5 E7 E8 E9 | 데이터 계약, lineage, timestamp, idempotency, replay/backfill, 스키마 진화, 데이터 품질 |
-| G3. ML / Data Science | B4 B5, C7 C8 (해당 시 C9 C10), C19 | 문제 정의, leakage 방지, 현실적 split, baseline, 강건한 평가, 재현성, 배포 경로 |
-| G4. Korean LLM Development | B4 B7, C10 C11 C12, C19 C20 | 한국어 코퍼스 구성, 토크나이저 효율, contamination, instruction quality, 벤치마크 강건성, 학습/추론 경제성, multi-GPU 효율 |
-| G5. RAG / Enterprise Search | B1 B3 B4, C4 C6 C13, C19, E5 E9 | 파싱 품질, chunking, metadata, 권한, retrieval 평가, citation 정확성, 문서 버저닝, 실패/거부 동작 |
-| G6. MCP / AI Agent | B1 B3, C1 C14 (해당 시 C13), E5 E9 | tool schema, 권한, trust boundary, deterministic workflow 우선, 감사 가능성, 가역적 side effect, tool 실패 처리 |
-| G7. Manufacturing AI | B3 B4 B5, C4, (해당 시) C7–C10 C16 C17, C19, D1–D7, E5 E9 | 물리 공정 이해, 센서 정렬, leakage 방지, 현장 검증, OT 제약, 설명 가능한 운영 지표, 안전한 실패 동작 |
-| G8. Smart Factory Platform | B3 B6, C4 C5 C6 C21, D1–D4, E7–E9 | OT/IT 경계, 프로토콜, 데이터 소유권, 통합 상태, replay/복구, 보안 네트워크 분리, 운영 유지보수성 |
-| G9. TMS / WMS / MES Integration | B1 B3, C1, (해당 시) C2 또는 C3, C4 C6, D4, E7–E9 | 상태 전이, system of record 소유권, 트랜잭션 일관성, 모바일/네트워크 장애, ERP/MES/WMS/TMS 정합, 감사 가능한 비즈니스 이벤트 |
-| G10. Scheduling / Dispatch / Optimization | B4 B5, C17 (해당 시 C18), D4 | 의사결정 변수, 제약, 목적함수, feasibility, deterministic optimization baseline, 고급 RL 전 시뮬레이션 |
-| G11. Industrial Vision | B4 B7, C15, C19, (GPU 배포 시) C20, D1, (edge 추론 시) D7 | 시나리오 기반 검증, 카메라/조명 조건, 동기화, 실패 케이스, latency, 현장 인수 기준 |
-| G12. AI Infrastructure / GPU Server | B3 B6 B7, (LLM 서빙 시) C12, C20 C21, E9 | 드라이버/커널/CUDA 호환성, 토폴로지, 저장소 throughput, 열/전력, 컨테이너 런타임, 실측 서빙/학습 성능, 복구 경로 |
-| G13. Korean Government Manufacturing-AI Project | B5, (문서 작업 시 B8), 관련 C 모듈, D1–D11 | 문제→기술→산출물→검증→효과, 측정 가능한 KPI, baseline 정직성, 현장 검증, 구현 가능성, 추적 가능한 아키텍처, 버즈워드 인플레이션 회피 |
+| G1. General Software Development | B1 B2 B3, C1 and/or C2, E1–E9 | correctness, maintainability, repo conventions, testability, backward compatibility |
+| G2. Data Engineering | B1 B3 B6 B7, C4 C5 C6, E5 E7 E8 E9 | data contracts, lineage, timestamps, idempotency, replay/backfill, schema evolution, data quality |
+| G3. ML / Data Science | B4 B5, C7 C8 (C9 C10 if applicable), C19 | problem definition, leakage prevention, realistic splits, baseline, robust evaluation, reproducibility, deployment path |
+| G4. Korean LLM Development | B4 B7, C10 C11 C12, C19 C20 | Korean corpus composition, tokenizer efficiency, contamination, instruction quality, benchmark robustness, training/inference economics, multi-GPU efficiency |
+| G5. RAG / Enterprise Search | B1 B3 B4, C4 C6 C13, C19, E5 E9 | parsing quality, chunking, metadata, permissions, retrieval evaluation, citation correctness, document versioning, failure/refusal behavior |
+| G6. MCP / AI Agent | B1 B3, C1 C14 (C13 if applicable), E5 E9 | tool schema, permissions, trust boundary, deterministic workflow first, auditability, reversible side effects, tool failure handling |
+| G7. Manufacturing AI | B3 B4 B5, C4, (as applicable) C7–C10 C16 C17, C19, D1–D7, E5 E9 | understanding the physical process, sensor alignment, leakage prevention, field validation, OT constraints, explainable operational metrics, safe failure behavior |
+| G8. Smart Factory Platform | B3 B6, C4 C5 C6 C21, D1–D4, E7–E9 | OT/IT boundaries, protocols, data ownership, integration state, replay/recovery, secure network segmentation, operational maintainability |
+| G9. TMS / WMS / MES Integration | B1 B3, C1, (as applicable) C2 or C3, C4 C6, D4, E7–E9 | state transitions, system-of-record ownership, transactional consistency, mobile/network failures, ERP/MES/WMS/TMS reconciliation, auditable business events |
+| G10. Scheduling / Dispatch / Optimization | B4 B5, C17 (C18 if applicable), D4 | decision variables, constraints, objective function, feasibility, deterministic optimization baseline, simulation before advanced RL |
+| G11. Industrial Vision | B4 B7, C15, C19, (C20 if deployed on GPU), D1, (D7 if edge inference) | scenario-based validation, camera/lighting conditions, synchronization, failure cases, latency, field acceptance criteria |
+| G12. AI Infrastructure / GPU Server | B3 B6 B7, (C12 if serving LLMs), C20 C21, E9 | driver/kernel/CUDA compatibility, topology, storage throughput, thermal/power, container runtime, measured serving/training performance, recovery path |
+| G13. Korean Government Manufacturing-AI Project | B5, (B8 for documentation work), relevant C modules, D1–D11 | problem → technology → deliverable → verification → effect, measurable KPIs, baseline honesty, field validation, implementation feasibility, traceable architecture, avoiding buzzword inflation |
 
 ---
 
@@ -2414,9 +2414,9 @@ The objective is engineering work that remains correct and understandable under 
 
 # PART K — Worked Examples
 
-PART A~J에서 모듈을 골라 실제로 조립하면 어떤 결과물이 나오는지 보여주는 예시다. 둘 다 **G1(General Software Development) 프리셋**을 적용한 결과이며, 유일한 차이는 0.3절의 배치표를 따른 것뿐이다 — 본문 내용은 동일하다.
+These examples show what actually comes out when modules are picked from PART A–J and assembled. Both apply the **G1 (General Software Development) preset**; the only difference is that each follows the 0.3 delta table for its own agent — the body content is identical.
 
-## K.1 예시 — G1 프리셋 × Claude Code (`CLAUDE.md`)
+## K.1 Example — G1 preset × Claude Code (`CLAUDE.md`)
 
 ```markdown
 # Claude Code Engineering Instructions
@@ -2728,7 +2728,7 @@ Before finalizing, verify:
 7. Does the PR accurately match the actual diff?
 ```
 
-## K.2 예시 — G1 프리셋 × Codex CLI / `AGENTS.md` 컨벤션 (`AGENTS.md`)
+## K.2 Example — G1 preset × Codex CLI / `AGENTS.md` convention (`AGENTS.md`)
 
 ```markdown
 # Codex Engineering Instructions
