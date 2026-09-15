@@ -65,7 +65,7 @@ This repository aims for a **single document** that any agent can fetch and refe
   - PART A (Common Core) through PART J (final check): rule body that is identical no matter which agent assembles it
   - PART F: Project Profile Template (used to map this repository's own `INTENT.md` into a project profile)
   - PART G: Preset (G1–G13) → Module Activation Map
-  - PART K: Worked Examples — finished results of assembling the same preset (G1) for Claude Code (`CLAUDE.md`) and for the Codex/`AGENTS.md` convention (`AGENTS.md`) respectively
+  - PART K: Worked Examples — finished results of assembling the same preset (G1) for Claude Code (`CLAUDE.md`), the Codex/`AGENTS.md` convention (`AGENTS.md`), and Hermes (`AGENTS.md`, plus a subdirectory-placement example since that's the one thing that actually differs from Codex)
 
 There used to be separate Claude/Codex master documents and their assembly examples (`CLAUDE.md`/`AGENTS.md`) split across 4 files. After confirming the PART A–J body was substantively identical, they were merged into one (the example files were absorbed into PART K). This file is this repository's primary raw material. If an assembly procedure or script is ever added, update sections 4 and 6 of this document.
 

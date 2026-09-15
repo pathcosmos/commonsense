@@ -2442,7 +2442,7 @@ The objective is engineering work that remains correct and understandable under 
 
 # PART K — Worked Examples
 
-These examples show what actually comes out when modules are picked from PART A–J and assembled. Both apply the **G1 (General Software Development) preset**; the only difference is that each follows the 0.3 delta table for its own agent — the body content is identical.
+These examples show what actually comes out when modules are picked from PART A–J and assembled. All three apply the **G1 (General Software Development) preset**; the only difference is that each follows the 0.3 delta table for its own agent — the body content is identical (K.3 is a special case: since Hermes's file is identical to K.2's, it shows the one thing that actually differs — subdirectory placement — instead of repeating the same content a third time).
 
 ## K.1 Example — G1 preset × Claude Code (`CLAUDE.md`)
 
@@ -3066,3 +3066,26 @@ Before finalizing, verify:
 6. Is it testable and maintainable?
 7. Does the PR accurately match the actual diff?
 ```
+
+## K.3 Example — G1 preset × Hermes (`AGENTS.md`)
+
+Hermes reads the exact same `AGENTS.md` convention as K.2 — same filename, same project-root location, same `##` PR header level, no separate co-author rule (see 0.3). **The root `AGENTS.md` for a Hermes project is the K.2 example above, unchanged.** Reproducing it a third time here would just be the same ~250 lines again, so it isn't repeated.
+
+What K.2 can't show is Hermes's one real difference: per-subdirectory `AGENTS.md` files that are lazy-loaded on tool calls instead of injected upfront (see 0.3 Placement row). A domain module that only applies to part of the repo doesn't have to live in the root file — it can go in its own `AGENTS.md` inside that subtree.
+
+Example: a project on the G1 preset overall, but with a `pipelines/` subtree that also needs the Data Engineering module (PART C4). Instead of inlining C4 into the root file (where it would be injected into every message even for unrelated work), put it in `pipelines/AGENTS.md`:
+
+```markdown
+# Data Pipeline Conventions
+
+Scope: everything under `pipelines/`. This supplements the root `AGENTS.md` — it only adds what's specific to this subtree, it doesn't repeat the Common Core.
+
+## Data Engineering (PART C4)
+
+- Treat `pipelines/raw/` as immutable — never mutate raw source records to simplify downstream processing.
+- Pipeline stages: Source → Ingestion → Raw → Validation → Transformation → Serving → Monitoring.
+- Always account for: schema evolution, timestamps/timezone, null handling, duplicates, ordering, late-arriving events, idempotency, retry, backfill, replay, retention, partitioning, indexing, lineage, data quality.
+- Define a data contract at any stage boundary where a failure would be costly.
+```
+
+Keep subdirectory files small and scoped: they're injected into every tool result touching that path, so unrelated content there wastes the same budget as bloating the root file.
