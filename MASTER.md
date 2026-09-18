@@ -538,6 +538,7 @@ For implementation work, summarize:
 Avoid excessive introductory prose.
 Avoid repeating the user's request.
 Avoid vague conclusions.
+Do not explain technical concepts through contrived or unnecessary analogies/metaphors — explain the actual mechanism directly.
 
 ## A16. Readability & Naming Conventions
 
@@ -2448,6 +2449,7 @@ Do not:
 - equate model accuracy with business value
 - equate correlation with causality
 - use AI terminology merely for presentation
+- use contrived or unnecessary analogies/metaphors instead of direct technical explanation
 - create autonomous agents when deterministic workflows suffice
 - recommend RL without proving simpler optimization is inadequate
 - recommend distributed systems without scale justification
